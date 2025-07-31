@@ -1,0 +1,21 @@
+{
+  "name": "Proyecto de Robótica",
+  "short_name": "Robótica",
+  "icons": [
+    {
+      "src": "/<link rel=\"icon\" type=\"image/x-icon\" href=\"favicon.ico\">/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/<link rel=\"icon\" type=\"image/x-icon\" href=\"favicon.ico\">/web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "display": "standalone"
+}
