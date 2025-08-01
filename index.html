@@ -112,100 +112,11 @@ p {
     margin: 15px auto; /* Centra la imagen y le da algo de margen vertical */
 }
 
-/* Nuevos estilos para la sección de comentarios */
-.comments-section {
-    background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro ligeramente transparente */
-    padding: 30px 40px;
-    border-radius: 8px;
-    margin: 20px auto;
-    max-width: 800px;
-    width: 90%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    color: white; /* Asegura que el texto sea visible */
-}
-
-.comments-section h2 {
-    color: #5ab507; /* Color que combina con el título principal */
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.comments-section label {
-    display: block;
-    margin-bottom: 8px;
-    color: #a9e159; /* Verde más claro para las etiquetas */
-    font-weight: bold;
-}
-
-.comments-section input[type="text"],
-.comments-section textarea {
-    width: calc(100% - 20px); /* Ajusta el ancho para el padding */
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #5ab507; /* Borde verde */
-    border-radius: 4px;
-    background-color: rgba(255, 255, 255, 0.1); /* Fondo ligeramente transparente para los campos */
-    color: white; /* Color del texto dentro de los campos */
-    font-family: inherit;
-}
-
-.comments-section input[type="text"]::placeholder,
-.comments-section textarea::placeholder {
-    color: rgba(255, 255, 255, 0.7);
-}
-
-.comments-section button {
-    background-image: linear-gradient(to right, #3d4a25, #14190c);
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1.1em;
-    font-weight: bold;
-    display: block;
-    margin: 0 auto 20px auto; /* Centra el botón y añade margen inferior */
-    transition: background-image 0.3s ease;
-}
-
-.comments-section button:hover {
-    background-image: linear-gradient(to right, #14190c, #3d4a25); /* Efecto hover sutil */
-}
-
-.comments-list {
-    margin-top: 30px; /* Valor numérico para el margen superior */
-    border-top: 1px solid rgba(255, 255, 255, 0.3); /* Separador visual */
-    padding-top: 20px; /* Espaciado después del separador */
-}
-
-.comment-item {
-    background-color: rgba(255, 255, 255, 0.1); /* Fondo ligeramente transparente para cada comentario */
-    padding: 15px 20px;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    color: white;
-    word-wrap: break-word; /* Asegura que las palabras largas se rompan */
-}
-
-.comment-item strong {
-    color: #a9e159; /* Color del nombre */
-    display: block; /* Muestra el nombre en su propia línea */
-    margin-bottom: 5px;
-}
-
-.comment-item p {
-    color: rgb(255, 255, 255); /* Blanco para el texto del comentario */
-    margin-bottom: 5px;
-    font-size: 0.95em;
-}
-
-.comment-item .comment-date {
-    font-size: 0.8em;
-    color: rgba(255, 255, 255, 0.7); /* Color más claro para la fecha */
-    text-align: right;
-    display: block;
-}
+/* ELIMINÉ los estilos previos de .comments-section ya que Commento tiene su propio CSS
+   Si necesitas estilizar Commento, deberás consultar su documentación.
+   Aquí dejo un espacio por si quieres añadir estilos generales que no afecten
+   el funcionamiento de Commento pero que sí afecten el div #commento si es necesario
+*/
 
 /* --- MEDIA QUERIES para dispositivos móviles --- */
 @media (max-width: 768px) {
@@ -247,15 +158,9 @@ p {
     padding-left: 15px; /* Ajusta el padding de la lista */
   }
 
-  .comments-section {
-      padding: 20px 25px; /* Ajusta padding para móvil */
-  }
-  .comments-section button {
-      padding: 10px 15px;
-      font-size: 1em;
-  }
-  .comment-item {
-      padding: 10px 15px;
+  /* Si necesitas ajustar el contenedor de Commento para móviles, puedes añadir reglas aquí, por ejemplo: */
+  #commento {
+      padding: 20px 25px;
   }
 }
 
@@ -270,7 +175,7 @@ p {
   .seccion-enfasis {
     padding: 15px 20px;
   }
-  .comments-section {
+  #commento {
     padding: 15px 20px;
   }
 }
@@ -324,20 +229,8 @@ p {
     <h2 style="color:rgb(255, 255, 255);">Recuadro 6</h2>
     <p>xxxxxx</p>
   </div>
-  <div class="comments-section">
-    <h2>Deja un Comentario</h2>
-    <form id="comment-form">
-      <label for="comment-name">Nombre:</label>
-      <input type="text" id="comment-name" placeholder="Tu nombre" required>
-      <label for="comment-text">Comentario:</label>
-      <textarea id="comment-text" rows="5" placeholder="Escribe tu comentario aquí..." required></textarea>
-      <button type="submit">Enviar Comentario</button>
-    </form>
-
-    <h2>Comentarios Recientes</h2>
-    <div id="comments-list" class="comments-list">
-      </div>
-  </div>
+  <div id="commento" style="max-width: 800px; margin: 20px auto; padding: 20px; background-color: rgba(0, 0, 0, 0.6); border-radius: 8px;"></div>
+  <script defer src="https://cdn.commento.io/js/commento.js"></script>
   <script>
 /* Lógica de Javascript unificada */
 document.addEventListener('contextmenu', function(e) {
@@ -384,58 +277,8 @@ document.addEventListener('DOMContentLoaded', function() {
   // Agrega el evento de scroll para la animación
   window.addEventListener('scroll', checkVisibility);
 
-  // Lógica para los comentarios
-  const commentForm = document.getElementById('comment-form');
-  const commentNameInput = document.getElementById('comment-name');
-  const commentTextInput = document.getElementById('comment-text');
-  const commentsList = document.getElementById('comments-list');
-
-  // Función para cargar comentarios desde localStorage
-  function loadComments() {
-    const comments = JSON.parse(localStorage.getItem('comments')) || [];
-    commentsList.innerHTML = ''; // Limpiar la lista antes de añadir
-
-    // Mostrar los comentarios más recientes primero
-    comments.reverse().forEach(comment => {
-      const commentItem = document.createElement('div');
-      commentItem.classList.add('comment-item');
-      commentItem.innerHTML = `
-        <strong>${comment.name}</strong>
-        <p>${comment.text}</p>
-        <span class="comment-date">${new Date(comment.date).toLocaleString()}</span>
-      `;
-      commentsList.appendChild(commentItem);
-    });
-  }
-
-  // Función para añadir un nuevo comentario
-  commentForm.addEventListener('submit', function(e) {
-    e.preventDefault(); // Prevenir el envío del formulario por defecto
-
-    const name = commentNameInput.value.trim();
-    const text = commentTextInput.value.trim();
-
-    if (name && text) {
-      const newComment = {
-        name: name,
-        text: text,
-        date: new Date().toISOString()
-      };
-
-      let comments = JSON.parse(localStorage.getItem('comments')) || [];
-      comments.push(newComment);
-      localStorage.setItem('comments', JSON.stringify(comments));
-
-      commentNameInput.value = ''; // Limpiar el campo de nombre
-      commentTextInput.value = ''; // Limpiar el campo de texto
-      loadComments(); // Recargar la lista de comentarios
-    } else {
-      alert('Por favor, ingresa tu nombre y un comentario.');
-    }
-  });
-
-  // Cargar comentarios al inicio
-  loadComments();
+  // **** IMPORTANTE: ELIMINÉ TODA LA LÓGICA DE JAVASCRIPT DE TUS COMENTARIOS ANTERIORES. ****
+  // **** Commento.io maneja sus propios comentarios, por lo que este JS ya no es necesario. ****
 });
 </script>
 
