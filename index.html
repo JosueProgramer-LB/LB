@@ -222,7 +222,7 @@ p {
   </div>
 
   <div id="dinoGameContainer" class="game-hidden">
-    <canvas id="dinoCanvas" width="600" height="150" style="background-color: #f7f7f7; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);"></canvas>
+    <canvas id="dinoCanvas" width="600" height="150"></canvas>
     <p class="game-instructions">Presiona ESPACIO para saltar. Presiona ESC para salir del juego.</p>
   </div>
 
@@ -284,7 +284,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const sections = document.querySelectorAll('.seccion-enfasis');
   const logo = document.getElementById('logoPrincipal');
   const dinoGameContainer = document.getElementById('dinoGameContainer');
-  const mainContentWrapper = document.getElementById('mainContentWrapper'); // Nuevo wrapper
+  const mainContentWrapper = document.getElementById('mainContentWrapper');
   
   let isGameActive = false; // Bandera para saber si el juego está activo
 
@@ -295,7 +295,7 @@ document.addEventListener('DOMContentLoaded', function() {
   let dino = { x: 50, y: canvas.height - 40, width: 20, height: 20, dy: 0, jumped: false };
   let obstacles = [];
   let score = 0;
-  let gameFrame;
+  let gameFrame; // Para controlar el requestAnimationFrame
   let gameSpeed = 3;
   let lastObstacleTime = 0;
   const OBSTACLE_INTERVAL = 1500; // Milisegundos entre obstáculos
@@ -332,7 +332,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const currentTime = performance.now();
     if (currentTime - lastObstacleTime > OBSTACLE_INTERVAL && obstacles.length < 3) {
       obstacles.push({ x: canvas.width, y: canvas.height - 30, width: 10 + Math.random() * 10, height: 20 + Math.random() * 20 });
-      lastObstacleTime = currentTime;
+      lastObstacleTime = currentTime + Math.random() * 500; // Variar un poco el siguiente obstáculo
     }
 
     for (let i = 0; i < obstacles.length; i++) {
@@ -356,7 +356,9 @@ document.addEventListener('DOMContentLoaded', function() {
       ) {
         // Colisión detectada, juego terminado
         alert(`¡Juego Terminado! Puntuación: ${score}. Presiona ESC para volver.`);
-        stopGame();
+        // No llamamos a stopGame aquí directamente, el ESC lo hará.
+        // Solo necesitamos asegurarnos de que el bucle de juego no continúe.
+        isGameActive = false; // Detiene el bucle en el siguiente frame
       }
     });
 
@@ -388,66 +390,69 @@ document.addEventListener('DOMContentLoaded', function() {
     cancelAnimationFrame(gameFrame);
   }
 
-  // Controlador de eventos para el juego
+  // --- FIN Lógica del juego Dino T-Rex ---
+
+
+  // --- Controladores de eventos para el juego y salida ---
+
+  // Controlador de eventos para el salto del dino (solo si el juego está activo)
   document.addEventListener('keydown', function(event) {
-    if (isGameActive) {
-      if (event.code === 'Space' && !dino.jumped) {
-        dino.dy = JUMP_STRENGTH;
-        dino.jumped = true;
-      }
+    if (isGameActive && event.code === 'Space' && !dino.jumped) {
+      dino.dy = JUMP_STRENGTH;
+      dino.jumped = true;
     }
   });
-  // --- Fin de la lógica del juego Dino T-Rex ---
+
+  // Controlador de eventos para la tecla ESC (funciona si el juego está visible/activo o ha terminado)
+  document.addEventListener('keydown', function(event) {
+    // Solo actuamos si el contenedor del juego está visible
+    if (!dinoGameContainer.classList.contains('game-hidden') && event.key === 'Escape') {
+      hideDinoGame();
+    }
+  });
+  // --- Fin de controladores de eventos ---
 
 
   // --- Lógica para mostrar/ocultar el juego y el contenido ---
-  // El logoPrincipal ya tiene id="logoPrincipal"
-  // Todas las secciones de contenido ahora están dentro de #mainContentWrapper
-  
-  // Función para ocultar el contenido principal y mostrar el juego
   function showDinoGame() {
     // Detener la animación de scroll de las secciones mientras el juego está activo
     window.removeEventListener('scroll', checkVisibility);
-    sections.forEach(section => section.classList.remove('appeared')); // Opcional: para que se oculten limpiamente
+    // Opcional: Para que las secciones se oculten limpiamente al entrar al juego.
+    // Aunque content-hidden ya las oculta, esto ayuda con la transición si la tuvieran.
+    sections.forEach(section => section.classList.remove('appeared')); 
     
     mainContentWrapper.classList.add('content-hidden'); // Oculta todo el wrapper de contenido
     dinoGameContainer.classList.remove('game-hidden'); // Muestra el juego
     
+    // Centrar la vista en el juego para mejor experiencia de usuario
     dinoGameContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
     startGame(); // Inicia el juego
   }
 
-  // Función para ocultar el juego y mostrar el contenido principal
   function hideDinoGame() {
     stopGame(); // Detiene el juego
     dinoGameContainer.classList.add('game-hidden'); // Oculta el juego
     mainContentWrapper.classList.remove('content-hidden'); // Muestra todo el wrapper de contenido
 
-    // Vuelve a activar la animación de scroll
-    sections.forEach(section => section.classList.add('hidden')); // Asegura que vuelvan a ocultarse para la animación
-    checkVisibility(); // Ejecuta una vez para mostrar las que estén en vista
+    // Vuelve a activar la animación de scroll para las secciones
+    // Las marcamos como hidden para que la animación se aplique al volver a la vista
+    sections.forEach(section => section.classList.add('hidden')); 
+    checkVisibility(); // Ejecuta una vez para mostrar las que estén en vista al volver
     window.addEventListener('scroll', checkVisibility);
   }
 
   // Event listener para el clic en el logo
   logo.addEventListener('click', function() {
-    if (!isGameActive) { // Solo si el juego no está activo, lo mostramos
+    // Solo mostramos el juego si no está ya activo (evitar múltiples inicios)
+    if (!isGameActive) { 
       showDinoGame();
     }
   });
 
-  // Event listener para la tecla ESC (para salir del juego)
-  document.addEventListener('keydown', function(event) {
-    if (isGameActive && event.key === 'Escape') {
-      hideDinoGame();
-    }
-  });
-  // --- Fin de la lógica para mostrar/ocultar el juego y el contenido ---
-
 
   // --- Lógica para la visibilidad de las secciones al hacer scroll ---
   function checkVisibility() {
-    // Si el juego está activo, no hacemos nada con las secciones
+    // Si el juego está activo, no hacemos nada con las secciones del contenido principal
     if (isGameActive) return; 
 
     sections.forEach(section => {
