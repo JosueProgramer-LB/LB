@@ -65,21 +65,21 @@ p {
   width: 90%; /* Ajuste a un porcentaje para ser flexible */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   color: white;
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 1s ease-out, transform 1s ease-out;
+  opacity: 1; /* Opacidad inicial para la transición final */
+  transform: translateY(0); /* Posición inicial para la transición final */
+  transition: opacity 1s ease-out, transform 1s ease-out; /* Transición suave para la aparición/desaparición */
   font-size: 1.1em;
   line-height: 1.8;
 }
 
 .hidden {
-  opacity: 0;
-  transform: translateY(20px);
+  opacity: 0; /* Oculta la sección cuando está fuera de vista */
+  transform: translateY(20px); /* La baja ligeramente para el efecto de aparición */
 }
 
 .appeared {
-  opacity: 1;
-  transform: translateY(0);
+  opacity: 1; /* Hace visible la sección */
+  transform: translateY(0); /* La sube a su posición normal */
 }
 
 .seccion-enfasis h2 {
@@ -111,12 +111,6 @@ p {
     display: block; /* Elimina espacio extra debajo de la imagen */
     margin: 15px auto; /* Centra la imagen y le da algo de margen vertical */
 }
-
-/* ELIMINÉ los estilos previos de .comments-section ya que Commento tiene su propio CSS
-   Si necesitas estilizar Commento, deberás consultar su documentación.
-   Aquí dejo un espacio por si quieres añadir estilos generales que no afecten
-   el funcionamiento de Commento pero que sí afecten el div #commento si es necesario
-*/
 
 /* --- MEDIA QUERIES para dispositivos móviles --- */
 @media (max-width: 768px) {
@@ -158,9 +152,9 @@ p {
     padding-left: 15px; /* Ajusta el padding de la lista */
   }
 
-  /* Si necesitas ajustar el contenedor de Commento para móviles, puedes añadir reglas aquí, por ejemplo: */
+  /* Ajuste básico para el contenedor de Commento en móviles */
   #commento {
-      padding: 20px 25px;
+      padding: 20px 25px !important; /* El !important ayuda a sobrescribir estilos inline o de Commento si es necesario */
   }
 }
 
@@ -176,7 +170,7 @@ p {
     padding: 15px 20px;
   }
   #commento {
-    padding: 15px 20px;
+    padding: 15px 20px !important;
   }
 }
 </style>
@@ -232,53 +226,60 @@ p {
   <div id="commento" style="max-width: 800px; margin: 20px auto; padding: 20px; background-color: rgba(0, 0, 0, 0.6); border-radius: 8px;"></div>
   <script defer src="https://cdn.commento.io/js/commento.js"></script>
   <script>
-/* Lógica de Javascript unificada */
+/* Lógica de Javascript para animaciones y funcionalidades generales de la página. */
+
+// Previene el menú contextual del clic derecho en toda la página
 document.addEventListener('contextmenu', function(e) {
-  e.preventDefault(); // Previene el menú contextual del clic derecho
+  e.preventDefault();
 });
 
+// Se ejecuta una vez que todo el contenido del DOM ha sido cargado
 document.addEventListener('DOMContentLoaded', function() {
+  // Selecciona todas las secciones con la clase 'seccion-enfasis' para la animación
   const sections = document.querySelectorAll('.seccion-enfasis');
 
   // Función para la visibilidad de las secciones al hacer scroll
   function checkVisibility() {
     sections.forEach(section => {
-      const rect = section.getBoundingClientRect();
-      const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+      const rect = section.getBoundingClientRect(); // Obtiene las dimensiones y posición del elemento
+      const viewportHeight = window.innerHeight || document.documentElement.clientHeight; // Altura de la ventana visible
       
       const elementHeight = rect.height;
-      const visibleTop = Math.max(0, rect.top);
-      const visibleBottom = Math.min(viewportHeight, rect.bottom);
-      const visibleHeight = visibleBottom - visibleTop;
+      const visibleTop = Math.max(0, rect.top); // Calcula la parte superior visible del elemento
+      const visibleBottom = Math.min(viewportHeight, rect.bottom); // Calcula la parte inferior visible del elemento
+      const visibleHeight = visibleBottom - visibleTop; // Altura del elemento que está visible
 
-      const visibilityThreshold = 0.5; // El 50% del elemento debe ser visible
+      // Umbral: el 50% del elemento debe ser visible para activarse/desactivarse
+      const visibilityThreshold = 0.5; 
       const isSignificantlyVisible = (visibleHeight / elementHeight) >= visibilityThreshold;
 
       if (isSignificantlyVisible) {
+        // Si el elemento es lo suficientemente visible y NO tiene la clase 'appeared'
         if (!section.classList.contains('appeared')) {
-          section.classList.remove('hidden');
-          section.classList.add('appeared');
+          section.classList.remove('hidden'); // Elimina la clase 'hidden' (para que empiece la animación de aparición)
+          section.classList.add('appeared'); // Añade la clase 'appeared' (estado final de la animación)
         }
       } else {
-        // Opcional: Si quieres que desaparezcan al salir de la vista
-        // if (section.classList.contains('appeared')) {
-        //   section.classList.remove('appeared');
-        //   section.classList.add('hidden');
-        // }
+        // Si la sección ya apareció y ahora NO es lo suficientemente visible, la ocultamos de nuevo.
+        if (section.classList.contains('appeared')) {
+          section.classList.remove('appeared'); // Quita la clase 'appeared'
+          section.classList.add('hidden');    // Vuelve a añadir la clase 'hidden' (para que empiece la animación de desaparición)
+        }
       }
     });
   }
 
-  // Inicializa todas las secciones como ocultas
+  // Inicializa todas las secciones como ocultas al cargar la página para que la animación funcione.
+  // Esto es vital para que al principio, solo las que están en vista aparezcan.
   sections.forEach(section => section.classList.add('hidden'));
 
-  // Ejecuta la función una vez al cargar para mostrar las secciones iniciales
+  // Ejecuta la función una vez al cargar para mostrar las secciones que ya están en vista (en la parte superior de la página)
   checkVisibility();
-  // Agrega el evento de scroll para la animación
+  // Agrega el evento de scroll para que la función se ejecute cada vez que el usuario desplaza la página
   window.addEventListener('scroll', checkVisibility);
 
-  // **** IMPORTANTE: ELIMINÉ TODA LA LÓGICA DE JAVASCRIPT DE TUS COMENTARIOS ANTERIORES. ****
-  // **** Commento.io maneja sus propios comentarios, por lo que este JS ya no es necesario. ****
+  // NOTA IMPORTANTE: Ya no hay código JavaScript para manejar formularios de comentarios personalizados
+  // o la lista de comentarios, ya que Commento.io se encarga de esa funcionalidad.
 });
 </script>
 
