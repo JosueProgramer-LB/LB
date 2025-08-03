@@ -40,6 +40,7 @@ h1 {
   width: 80px;
   height: 80px;
   object-fit: contain;
+  cursor: pointer; /* Indica que es clicable */
 }
 
 h2 {
@@ -112,6 +113,41 @@ p {
     margin: 15px auto; /* Centra la imagen y le da algo de margen vertical */
 }
 
+/* Estilos para el contenedor del juego */
+#dinoGameContainer {
+    display: flex; /* Para centrar el canvas */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 200px; /* Un poco de altura para que sea visible el contenedor */
+    margin: 20px auto;
+    max-width: 800px;
+    box-sizing: border-box;
+}
+
+.game-hidden {
+    display: none !important; /* Oculta el contenedor del juego por defecto */
+}
+
+.content-hidden {
+    display: none !important; /* Oculta el resto del contenido de la página */
+}
+
+.game-instructions {
+    color: white; /* Color para las instrucciones */
+    text-align: center;
+    margin-top: 10px;
+    font-size: 0.9em;
+}
+
+/* Ajustes para el canvas del juego */
+#dinoCanvas {
+    background-color: #f7f7f7;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
 /* --- MEDIA QUERIES para dispositivos móviles --- */
 @media (max-width: 768px) {
   body {
@@ -156,6 +192,10 @@ p {
   #commento {
       padding: 20px 25px !important; /* El !important ayuda a sobrescribir estilos inline o de Commento si es necesario */
   }
+  #dinoCanvas {
+    width: 100%; /* Ajusta el ancho del canvas para móviles */
+    height: auto; /* Mantiene la proporción */
+  }
 }
 
 @media (max-width: 480px) {
@@ -178,53 +218,59 @@ p {
 <body>
   <div class="titulo-principal-contenedor">
     <h1>Proyecto de Robótica 2025-Liceo Dr. Ricardo Bressani</h1>
-    <img src="https://static.wixstatic.com/media/a79656_b3956f8e396847fc8f5ae9f3d4df3a55~mv2_d_1200_1200_s_2.png/v1/crop/x_0,y_164,w_1200,h_1036/fill/w_150,h_150,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/lgous.png" alt="Logo Liceo Dr. Ricardo Bressani">
+    <img id="logoPrincipal" src="https://static.wixstatic.com/media/a79656_b3956f8e396847fc8f5ae9f3d4df3a55~mv2_d_1200_1200_s_2.png/v1/crop/x_0,y_164,w_1200,h_1036/fill/w_150,h_150,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/lgous.png" alt="Logo Liceo Dr. Ricardo Bressani">
   </div>
 
-  <div class="seccion-enfasis hidden">
-    <h2 style="color: rgb(255, 255, 255)">¿De qué Trata nuestro proyecto?</h2>
-    <p>Nuestro proyecto trata sobre el cuidado del bosque enfatizando diferentes objetivos</p>
+  <div id="dinoGameContainer" class="game-hidden">
+    <canvas id="dinoCanvas" width="600" height="150" style="background-color: #f7f7f7; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);"></canvas>
+    <p class="game-instructions">Presiona ESPACIO para saltar. Presiona ESC para salir del juego.</p>
   </div>
 
-  <div class="seccion-enfasis hidden">
-    <h2 style="color: rgb(255, 255, 255)">Nuestro Énfasis Principal: Combate a la Deforestación</h2>
-    <p>En el corazón de nuestro proyecto está el **compromiso inquebrantable con la preservación de los bosques**. Nos enfocamos en desarrollar **soluciones robóticas avanzadas** diseñadas para monitorear, proteger y reforestar áreas vulnerables. Creemos firmemente que la tecnología puede ser una poderosa aliada en la lucha contra la tala ilegal, los incendios forestales y la degradación del suelo. Nuestros esfuerzos se dirigen a:</p>
-    <ul>
-      <li>**Monitoreo Activo:** Implementar drones y sensores autónomos para detectar actividades sospechosas en tiempo real.</li>
-      <li>**Alerta Temprana:** Establecer sistemas de alerta para prevenir incendios y talas ilegales antes de que causen daños mayores.</li>
-      <li>**Reforestación Eficiente:** Diseñar robots capaces de plantar semillas y pequeños árboles en terrenos difíciles de alcanzar.</li>
-      <li>**Concientización:** Generar datos y evidencias que ayuden a educar a la comunidad sobre la importancia vital de los bosques.</li>
-    </ul>
-  </div>
+  <div id="mainContentWrapper">
+    <div class="seccion-enfasis hidden">
+      <h2 style="color: rgb(255, 255, 255)">¿De qué Trata nuestro proyecto?</h2>
+      <p>Nuestro proyecto trata sobre el cuidado del bosque enfatizando diferentes objetivos</p>
+    </div>
 
-  <div class="seccion-enfasis hidden">
-    <h2 style="color:#ffffff">Nuestra experiencia</h2>
-    <p>Somos un equipo conformado por 5 integrantes, nuestros nombres son:</p>
-    <ul>
-      <li>Nikolás Hernandez</li>
-      <li>Josué Choc</li>
-      <li>Ahylía Gonzalez</li>
-      <li>Angel Valdez</li>
-      <li>------------</li>
-    </ul>
-  </div>
-  <div class="seccion-enfasis hidden">
-    <h2 style="color:rgb(255, 255, 255)">Nuestros Objetivos a largo plazo</h2>
-    <ul>
-      <li>Poder brindar una solución efectiva a los problemas de la deforestación</li> <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIjfk79_OL-BhZBhohhPI6eYArqKx2K1SP-Q&s" alt="Imagen de deforestación">
-      <li>y muchos otros más que se añadirán próximamente</li>
-    </ul>
-  </div>
-  <div class="seccion-enfasis hidden">
-    <h2 style="color: #ffffff;">Información Adicional</h2>
-    <p>Este es un nuevo recuadro que debería aparecer debajo de los demás.</p>
-  </div>
-  <div class="seccion-enfasis hidden">
-    <h2 style="color:rgb(255, 255, 255);">Recuadro 6</h2>
-    <p>Informacíon Adicional</p>
-  </div>
-  <div id="commento" style="max-width: 800px; margin: 20px auto; padding: 20px; background-color: rgba(0, 0, 0, 0.6); border-radius: 8px;"></div>
-  <script defer src="https://cdn.commento.io/js/commento.js"></script>
+    <div class="seccion-enfasis hidden">
+      <h2 style="color: rgb(255, 255, 255)">Nuestro Énfasis Principal: Combate a la Deforestación</h2>
+      <p>En el corazón de nuestro proyecto está el **compromiso inquebrantable con la preservación de los bosques**. Nos enfocamos en desarrollar **soluciones robóticas avanzadas** diseñadas para monitorear, proteger y reforestar áreas vulnerables. Creemos firmemente que la tecnología puede ser una poderosa aliada en la lucha contra la tala ilegal, los incendios forestales y la degradación del suelo. Nuestros esfuerzos se dirigen a:</p>
+      <ul>
+        <li>**Monitoreo Activo:** Implementar drones y sensores autónomos para detectar actividades sospechosas en tiempo real.</li>
+        <li>**Alerta Temprana:** Establecer sistemas de alerta para prevenir incendios y talas ilegales antes de que causen daños mayores.</li>
+        <li>**Reforestación Eficiente:** Diseñar robots capaces de plantar semillas y pequeños árboles en terrenos difíciles de alcanzar.</li>
+        <li>**Concientización:** Generar datos y evidencias que ayuden a educar a la comunidad sobre la importancia vital de los bosques.</li>
+      </ul>
+    </div>
+
+    <div class="seccion-enfasis hidden">
+      <h2 style="color:#ffffff">Nuestra experiencia</h2>
+      <p>Somos un equipo conformado por 5 integrantes, nuestros nombres son:</p>
+      <ul>
+        <li>Nikolás Hernandez</li>
+        <li>Josué Choc</li>
+        <li>Ahylía Gonzalez</li>
+        <li>Angel Valdez</li>
+        <li>------------</li>
+      </ul>
+    </div>
+    <div class="seccion-enfasis hidden">
+      <h2 style="color:rgb(255, 255, 255)">Nuestros Objetivos a largo plazo</h2>
+      <ul>
+        <li>Poder brindar una solución efectiva a los problemas de la deforestación</li> <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIjfk79_OL-BhZBhohhPI6eYArqKx2K1SP-Q&s" alt="Imagen de deforestación">
+        <li>y muchos otros más que se añadirán próximamente</li>
+      </ul>
+    </div>
+    <div class="seccion-enfasis hidden">
+      <h2 style="color: #ffffff;">Información Adicional</h2>
+      <p>Este es un nuevo recuadro que debería aparecer debajo de los demás.</p>
+    </div>
+    <div class="seccion-enfasis hidden">
+      <h2 style="color:rgb(255, 255, 255);">Recuadro 6</h2>
+      <p>xxxxxx</p>
+    </div>
+    <div id="commento" style="max-width: 800px; margin: 20px auto; padding: 20px; background-color: rgba(0, 0, 0, 0.6); border-radius: 8px;"></div>
+    </div> <script defer src="https://cdn.commento.io/js/commento.js"></script>
   <script>
 /* Lógica de Javascript para animaciones y funcionalidades generales de la página. */
 
@@ -235,47 +281,207 @@ document.addEventListener('contextmenu', function(e) {
 
 // Se ejecuta una vez que todo el contenido del DOM ha sido cargado
 document.addEventListener('DOMContentLoaded', function() {
-  // Selecciona todas las secciones con la clase 'seccion-enfasis' para la animación
   const sections = document.querySelectorAll('.seccion-enfasis');
+  const logo = document.getElementById('logoPrincipal');
+  const dinoGameContainer = document.getElementById('dinoGameContainer');
+  const mainContentWrapper = document.getElementById('mainContentWrapper'); // Nuevo wrapper
+  
+  let isGameActive = false; // Bandera para saber si el juego está activo
 
-  // Función para la visibilidad de las secciones al hacer scroll
+  // --- Lógica del juego Dino T-Rex (simplificado) ---
+  const canvas = document.getElementById('dinoCanvas');
+  const ctx = canvas.getContext('2d');
+
+  let dino = { x: 50, y: canvas.height - 40, width: 20, height: 20, dy: 0, jumped: false };
+  let obstacles = [];
+  let score = 0;
+  let gameFrame;
+  let gameSpeed = 3;
+  let lastObstacleTime = 0;
+  const OBSTACLE_INTERVAL = 1500; // Milisegundos entre obstáculos
+  const JUMP_STRENGTH = -5; // Fuerza de salto
+  const GRAVITY = 0.2; // Gravedad
+
+  function drawDino() {
+    ctx.fillStyle = 'green';
+    ctx.fillRect(dino.x, dino.y, dino.width, dino.height);
+  }
+
+  function drawObstacles() {
+    ctx.fillStyle = 'red';
+    obstacles.forEach(obs => {
+      ctx.fillRect(obs.x, obs.y, obs.width, obs.height);
+    });
+  }
+
+  function updateGameArea() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // Limpia el canvas
+
+    // Mover dinosaurio
+    if (dino.jumped) {
+      dino.dy += GRAVITY;
+      dino.y += dino.dy;
+      if (dino.y >= canvas.height - dino.height) { // Toca el suelo
+        dino.y = canvas.height - dino.height;
+        dino.jumped = false;
+        dino.dy = 0;
+      }
+    }
+
+    // Mover y generar obstáculos
+    const currentTime = performance.now();
+    if (currentTime - lastObstacleTime > OBSTACLE_INTERVAL && obstacles.length < 3) {
+      obstacles.push({ x: canvas.width, y: canvas.height - 30, width: 10 + Math.random() * 10, height: 20 + Math.random() * 20 });
+      lastObstacleTime = currentTime;
+    }
+
+    for (let i = 0; i < obstacles.length; i++) {
+      obstacles[i].x -= gameSpeed;
+      // Remover obstáculos fuera de pantalla
+      if (obstacles[i].x + obstacles[i].width < 0) {
+        obstacles.splice(i, 1);
+        score++; // Aumentar puntuación al pasar un obstáculo
+        i--;
+        if (score % 5 === 0) gameSpeed += 0.5; // Aumentar velocidad cada 5 puntos
+      }
+    }
+
+    // Detección de colisiones
+    obstacles.forEach(obs => {
+      if (
+        dino.x < obs.x + obs.width &&
+        dino.x + dino.width > obs.x &&
+        dino.y < obs.y + obs.height &&
+        dino.y + dino.height > obs.y
+      ) {
+        // Colisión detectada, juego terminado
+        alert(`¡Juego Terminado! Puntuación: ${score}. Presiona ESC para volver.`);
+        stopGame();
+      }
+    });
+
+    drawDino();
+    drawObstacles();
+
+    // Dibujar puntuación
+    ctx.fillStyle = 'black';
+    ctx.font = '12px Arial';
+    ctx.fillText('Puntuación: ' + score, canvas.width - 100, 20);
+
+    if (isGameActive) {
+      gameFrame = requestAnimationFrame(updateGameArea);
+    }
+  }
+
+  function startGame() {
+    isGameActive = true;
+    dino = { x: 50, y: canvas.height - 40, width: 20, height: 20, dy: 0, jumped: false };
+    obstacles = [];
+    score = 0;
+    gameSpeed = 3;
+    lastObstacleTime = performance.now();
+    requestAnimationFrame(updateGameArea);
+  }
+
+  function stopGame() {
+    isGameActive = false;
+    cancelAnimationFrame(gameFrame);
+  }
+
+  // Controlador de eventos para el juego
+  document.addEventListener('keydown', function(event) {
+    if (isGameActive) {
+      if (event.code === 'Space' && !dino.jumped) {
+        dino.dy = JUMP_STRENGTH;
+        dino.jumped = true;
+      }
+    }
+  });
+  // --- Fin de la lógica del juego Dino T-Rex ---
+
+
+  // --- Lógica para mostrar/ocultar el juego y el contenido ---
+  // El logoPrincipal ya tiene id="logoPrincipal"
+  // Todas las secciones de contenido ahora están dentro de #mainContentWrapper
+  
+  // Función para ocultar el contenido principal y mostrar el juego
+  function showDinoGame() {
+    // Detener la animación de scroll de las secciones mientras el juego está activo
+    window.removeEventListener('scroll', checkVisibility);
+    sections.forEach(section => section.classList.remove('appeared')); // Opcional: para que se oculten limpiamente
+    
+    mainContentWrapper.classList.add('content-hidden'); // Oculta todo el wrapper de contenido
+    dinoGameContainer.classList.remove('game-hidden'); // Muestra el juego
+    
+    dinoGameContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    startGame(); // Inicia el juego
+  }
+
+  // Función para ocultar el juego y mostrar el contenido principal
+  function hideDinoGame() {
+    stopGame(); // Detiene el juego
+    dinoGameContainer.classList.add('game-hidden'); // Oculta el juego
+    mainContentWrapper.classList.remove('content-hidden'); // Muestra todo el wrapper de contenido
+
+    // Vuelve a activar la animación de scroll
+    sections.forEach(section => section.classList.add('hidden')); // Asegura que vuelvan a ocultarse para la animación
+    checkVisibility(); // Ejecuta una vez para mostrar las que estén en vista
+    window.addEventListener('scroll', checkVisibility);
+  }
+
+  // Event listener para el clic en el logo
+  logo.addEventListener('click', function() {
+    if (!isGameActive) { // Solo si el juego no está activo, lo mostramos
+      showDinoGame();
+    }
+  });
+
+  // Event listener para la tecla ESC (para salir del juego)
+  document.addEventListener('keydown', function(event) {
+    if (isGameActive && event.key === 'Escape') {
+      hideDinoGame();
+    }
+  });
+  // --- Fin de la lógica para mostrar/ocultar el juego y el contenido ---
+
+
+  // --- Lógica para la visibilidad de las secciones al hacer scroll ---
   function checkVisibility() {
+    // Si el juego está activo, no hacemos nada con las secciones
+    if (isGameActive) return; 
+
     sections.forEach(section => {
-      const rect = section.getBoundingClientRect(); // Obtiene las dimensiones y posición del elemento
-      const viewportHeight = window.innerHeight || document.documentElement.clientHeight; // Altura de la ventana visible
+      const rect = section.getBoundingClientRect();
+      const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
       
       const elementHeight = rect.height;
-      const visibleTop = Math.max(0, rect.top); // Calcula la parte superior visible del elemento
-      const visibleBottom = Math.min(viewportHeight, rect.bottom); // Calcula la parte inferior visible del elemento
-      const visibleHeight = visibleBottom - visibleTop; // Altura del elemento que está visible
+      const visibleTop = Math.max(0, rect.top);
+      const visibleBottom = Math.min(viewportHeight, rect.bottom);
+      const visibleHeight = visibleBottom - visibleTop;
 
-      // Umbral: el 50% del elemento debe ser visible para activarse/desactivarse
       const visibilityThreshold = 0.5; 
       const isSignificantlyVisible = (visibleHeight / elementHeight) >= visibilityThreshold;
 
       if (isSignificantlyVisible) {
-        // Si el elemento es lo suficientemente visible y NO tiene la clase 'appeared'
         if (!section.classList.contains('appeared')) {
-          section.classList.remove('hidden'); // Elimina la clase 'hidden' (para que empiece la animación de aparición)
-          section.classList.add('appeared'); // Añade la clase 'appeared' (estado final de la animación)
+          section.classList.remove('hidden');
+          section.classList.add('appeared');
         }
       } else {
-        // Si la sección ya apareció y ahora NO es lo suficientemente visible, la ocultamos de nuevo.
         if (section.classList.contains('appeared')) {
-          section.classList.remove('appeared'); // Quita la clase 'appeared'
-          section.classList.add('hidden');    // Vuelve a añadir la clase 'hidden' (para que empiece la animación de desaparición)
+          section.classList.remove('appeared');
+          section.classList.add('hidden');
         }
       }
     });
   }
 
-  // Inicializa todas las secciones como ocultas al cargar la página para que la animación funcione.
-  // Esto es vital para que al principio, solo las que están en vista aparezcan.
+  // Inicializa todas las secciones como ocultas al cargar la página
   sections.forEach(section => section.classList.add('hidden'));
 
-  // Ejecuta la función una vez al cargar para mostrar las secciones que ya están en vista (en la parte superior de la página)
+  // Ejecuta la función una vez al cargar para mostrar las secciones iniciales
   checkVisibility();
-  // Agrega el evento de scroll para que la función se ejecute cada vez que el usuario desplaza la página
+  // Agrega el evento de scroll para la animación
   window.addEventListener('scroll', checkVisibility);
 
   // NOTA IMPORTANTE: Ya no hay código JavaScript para manejar formularios de comentarios personalizados
@@ -285,4 +491,3 @@ document.addEventListener('DOMContentLoaded', function() {
 
 </body>
 </html>
-
