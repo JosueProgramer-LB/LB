@@ -42,22 +42,29 @@
             object-fit: contain;
             cursor: pointer; /* Indica que es clicable */
         }
+        
+        .slogan {
+            color: #a7acab;
+            font-size: 2em;
+            text-align: center;
+        }
 
         h2 {
-            color: Blue;
+            color: blue; /* Se corrigió "Blue" a "blue" para consistencia */
             margin-top: 30px;
             margin-bottom: 10px;
             font-size: 1.8em; /* Tamaño de fuente base para los subtítulos h2 */
         }
+
         p {
-            color:rgb(255, 255, 255);
+            color: rgb(255, 255, 255);
             margin-bottom: 15px;
             line-height: 1.6;
             font-size: 1em; /* Tamaño de fuente base para los párrafos */
         }
 
         .seccion-enfasis {
-            background-image: linear-gradient(to right,#3d4a25, #14190c);
+            background-image: linear-gradient(to right, #3d4a25, #14190c);
             padding: 30px 40px; /* Tamaño original de los recuadros */
             text-align: center;
             border-radius: 8px;
@@ -72,25 +79,15 @@
             font-size: 1.1em;
             line-height: 1.8;
         }
-
-        .hidden {
-            opacity: 0; /* Oculta la sección cuando está fuera de vista */
-            transform: translateY(20px); /* La baja ligeramente para el efecto de aparición */
-        }
-
-        .appeared {
-            opacity: 1; /* Hace visible la sección */
-            transform: translateY(0); /* La sube a su posición normal */
+        
+        /* Estilos para el texto y las listas dentro de las secciones de énfasis */
+        .seccion-enfasis h2, .seccion-enfasis p, .seccion-enfasis ul, .seccion-enfasis li {
+            color: white; /* Color blanco consistente para todo el contenido */
         }
 
         .seccion-enfasis h2 {
-            color: white; /* Color por defecto para h2 en secciones de énfasis */
             margin-top: 0;
             margin-bottom: 5px;
-        }
-
-        .seccion-enfasis p {
-            color: white;
         }
 
         .seccion-enfasis ul {
@@ -101,7 +98,6 @@
         }
 
         .seccion-enfasis ul li {
-            color: white;
             margin-bottom: 5px;
         }
 
@@ -111,6 +107,16 @@
             height: auto; /* Mantiene la proporción de la imagen */
             display: block; /* Elimina espacio extra debajo de la imagen */
             margin: 15px auto; /* Centra la imagen y le da algo de margen vertical */
+        }
+
+        .hidden {
+            opacity: 0; /* Oculta la sección cuando está fuera de vista */
+            transform: translateY(20px); /* La baja ligeramente para el efecto de aparición */
+        }
+
+        .appeared {
+            opacity: 1; /* Hace visible la sección */
+            transform: translateY(0); /* La sube a su posición normal */
         }
 
         /* Estilos para el contenedor del juego iframe */
@@ -188,6 +194,10 @@
                 width: 60px; /* Logo más pequeño en móviles */
                 height: 60px;
             }
+            
+            .slogan {
+                font-size: 1.2em;
+            }
 
             h2 {
                 font-size: 1.5em; /* Subtítulos más pequeños en móviles */
@@ -239,9 +249,8 @@
     <div class="titulo-principal-contenedor">
         <h1>Proyecto de Robótica 2025-Liceo Dr. Ricardo Bressani</h1>
         <img id="logoPrincipal" src="https://static.wixstatic.com/media/a79656_b3956f8e396847fc8f5ae9f3d4df3a55~mv2_d_1200_1200_s_2.png/v1/crop/x_0,y_164,w_1200,h_1036/fill/w_150,h_150,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/lgous.png" alt="Logo Liceo Dr. Ricardo Bressani">
-         <strong style="color:#a7acab;">"Donde la tecnología y la creatividad protegen la naturaleza"</strong>
     </div>
-    
+    <p class="slogan"><strong>"Donde la tecnología y la creatividad protegen la naturaleza"</strong></p>
 
     <div id="dinoGameIframeContainer">
         <iframe src="https://chromedino.com/" frameborder="0" scrolling="no" width="100%" height="100%" loading="lazy"></iframe>
@@ -250,30 +259,30 @@
             <button id="exitGameButton">Salir del Juego</button>
         </div>
     </div>
-    <div class="seccion-enfasis hidden">
-         <h2 style="color: rgb(255, 255, 255)">Nuestro Nombre De equipo</h2>
-       <p>Nuestro nombre de equipo es "Wildtech"</p>
-       </div>
 
     <div id="mainContentWrapper">
         <div class="seccion-enfasis hidden">
-            <h2 style="color: rgb(255, 255, 255)">¿De qué Trata nuestro proyecto?</h2>
+            <h2 style="color: white;">Acerca de Nosotros</h2>
+            <p>Somos Wildtech, un equipo que se especializa en la First Lego League, enfocándonos en brindar protección a la naturaleza</p>
+        </div>
+
+        <div class="seccion-enfasis hidden">
+            <h2 style="color: white;">¿De qué Trata nuestro proyecto?</h2>
             <p>Nuestro proyecto trata sobre el cuidado del bosque enfatizando diferentes objetivos</p>
         </div>
 
         <div class="seccion-enfasis hidden">
-            <h2 style="color: rgb(255, 255, 255)">Nuestro Énfasis Principal: Combate a la Deforestación</h2>
-            <p>En el corazón de nuestro proyecto está el **compromiso inquebrantable con la preservación de los bosques**. Nos enfocamos en desarrollar **soluciones robóticas avanzadas** diseñadas para monitorear, proteger y reforestar áreas vulnerables. Creemos firmemente que la tecnología puede ser una poderosa aliada en la lucha contra la tala ilegal, los incendios forestales y la degradación del suelo. Nuestros esfuerzos se dirigen a:</p>
+            <h2 style="color: white;">Nuestro Énfasis Principal: Combate a la Deforestación</h2>
+            <p>En el corazón de nuestro proyecto está el <strong>compromiso inquebrantable con la preservación de los bosques</strong>. Nos enfocamos en el desarrollo de <strong>prototipos y sistemas inteligentes</strong> para monitorear y asistir en la restauración de áreas vulnerables. Creemos firmemente que la tecnología puede ser una poderosa aliada en la lucha contra la tala ilegal y la degradación del suelo. Nuestros esfuerzos se dirigen a:</p>
             <ul>
-                <li>**Monitoreo Activo:** Implementar drones y sensores autónomos para detectar actividades sospechosas en tiempo real.</li>
-                <li>**Alerta Temprana:** Establecer sistemas de alerta para prevenir incendios y talas ilegales antes de que causen daños mayores.</li>
-                <li>**Reforestación Eficiente:** Diseñar robots capaces de plantar semillas y pequeños árboles en terrenos difíciles de alcanzar.</li>
-                <li>**Concientización:** Generar datos y evidencias que ayuden a educar a la comunidad sobre la importancia vital de los bosques.</li>
+                <li><strong>Monitoreo con Sensores:</strong> Crear estaciones de monitoreo equipadas con sensores para recopilar datos clave en tiempo real, como la humedad del suelo, la temperatura del aire y la salud de la vegetación, lo cual es fundamental para entender el estado del ecosistema.</li>
+                <li><strong>Mecanismos de Reforestación Automatizada:</strong> Diseñar y construir prototipos de dispositivos que puedan dispensar semillas o plántulas de forma precisa en áreas específicas, haciendo la reforestación más eficiente.</li>
+                <li><strong>Análisis de Datos y Concientización:</strong> Utilizar la información recopilada por nuestros sensores para generar evidencias que ayuden a educar a la comunidad y a demostrar la importancia vital de la conservación forestal.</li>
             </ul>
         </div>
 
         <div class="seccion-enfasis hidden">
-            <h2 style="color:#ffffff">Nuestra experiencia</h2>
+            <h2 style="color: white;">Nuestra experiencia</h2>
             <p>Somos un equipo conformado por 5 integrantes, nuestros nombres son:</p>
             <ul>
                 <li>Nikolás Hernandez</li>
@@ -283,23 +292,29 @@
                 <li>Mariandré Fernandez</li>
             </ul>
         </div>
+        
         <div class="seccion-enfasis hidden">
-            <h2 style="color:rgb(255, 255, 255);">Nuestros Objetivos a largo plazo</h2>
+            <h2 style="color: white;">Nuestros Objetivos a largo plazo</h2>
             <ul>
-                <li>Poder brindar una solución efectiva a los problemas de la deforestación</li> <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIjfk79_OL-BhZBhohhPI6eYArqKx2K1SP-Q&s" alt="Imagen de deforestación">
-                <li>y muchos otros más que se añadirán próximamente</li>
+                <li>Poder brindar una solución efectiva a los problemas de la deforestación</li>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIjfk79_OL-BhZBhohhPI6eYArqKx2K1SP-Q&s" alt="Error-404">
+                <li>Medir La humedad del suelo y garantizar el buen desarrolo de los árboles</li>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTF_nB4-fvdJ4ovNGgT1khvqbDvJsYCW1gP7w&s" alt="Error-404">
             </ul>
+            <!-- tamaño de las imágenes= 273x185 -->
         </div>
+        
         <div class="seccion-enfasis hidden">
-            <h2 style="color: #ffffff;">Información Adicional</h2>
+            <h2 style="color: white;">Información Adicional</h2>
             <p>Este es un nuevo recuadro que debería aparecer debajo de los demás.</p>
         </div>
         <div class="seccion-enfasis hidden">
-            <h2 style="color:rgb(255, 255, 255);">Recuadro 6</h2>
+            <h2 style="color: white;">Recuadro 6</h2>
             <p>xxxxxx</p>
         </div>
         <div id="commento" style="max-width: 800px; margin: 20px auto; padding: 20px; background-color: rgba(0, 0, 0, 0.6); border-radius: 8px;"></div>
     </div>
+    
     <script defer src="https://cdn.commento.io/js/commento.js"></script>
     <script>
         document.addEventListener('contextmenu', function(e) {
@@ -311,57 +326,41 @@
             const logo = document.getElementById('logoPrincipal');
             const dinoGameIframeContainer = document.getElementById('dinoGameIframeContainer');
             const exitGameButton = document.getElementById('exitGameButton');
-            const mainContentWrapper = document.getElementById('mainContentWrapper');
 
-            // --- Lógica para mostrar/ocultar el juego y el contenido ---
             function showDinoGame() {
-                // Desactiva el scroll de la página principal para que el juego tome el foco
                 document.body.style.overflow = 'hidden'; 
                 window.removeEventListener('scroll', checkVisibility);
                 sections.forEach(section => section.classList.remove('appeared'));
 
-                // Oculta el contenido principal (opcional, si quieres que el iframe lo cubra por completo)
-                // mainContentWrapper.style.display = 'none'; 
-                
-                // Muestra el contenedor del iframe del juego
                 dinoGameIframeContainer.classList.add('game-visible');
             }
 
             function hideDinoGame() {
-                // Restaura el scroll de la página principal
                 document.body.style.overflow = ''; 
                 
-                // Oculta el contenedor del iframe del juego
                 dinoGameIframeContainer.classList.remove('game-visible');
-
-                // Muestra el contenido principal de nuevo (si lo ocultaste)
-                // mainContentWrapper.style.display = 'block'; 
 
                 sections.forEach(section => section.classList.add('hidden'));
                 checkVisibility();
                 window.addEventListener('scroll', checkVisibility);
             }
 
-            // Event listener para el clic en el logo (iniciar juego)
             logo.addEventListener('click', function() {
                 showDinoGame();
             });
 
-            // Event listener para el botón de salir del juego
             exitGameButton.addEventListener('click', function() {
                 hideDinoGame();
             });
 
-            // Event listener para la tecla ESC (salir del juego)
             document.addEventListener('keydown', function(event) {
                 if (event.key === 'Escape' && dinoGameIframeContainer.classList.contains('game-visible')) {
                     hideDinoGame();
                 }
             });
 
-            // --- Lógica para la visibilidad de las secciones al hacer scroll ---
             function checkVisibility() {
-                if (dinoGameIframeContainer.classList.contains('game-visible')) return; // No animar si el juego está visible
+                if (dinoGameIframeContainer.classList.contains('game-visible')) return;
 
                 sections.forEach(section => {
                     const rect = section.getBoundingClientRect();
@@ -389,15 +388,10 @@
                 });
             }
 
-            // Inicializa todas las secciones como ocultas al cargar la página
             sections.forEach(section => section.classList.add('hidden'));
-
-            // Ejecuta la función una vez al cargar para mostrar las secciones iniciales
             checkVisibility();
-            // Agrega el evento de scroll para la animación
             window.addEventListener('scroll', checkVisibility);
         });
     </script>
-
 </body>
 </html>
