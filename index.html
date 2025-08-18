@@ -1,138 +1,296 @@
 <!DOCTYPE html>
-<html><head>
-    <title>S.T.E.A.M Birds</title>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>S.T.E.A.M Birds - Robótica para la Conservación</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Equipo de robótica enfocado en la protección del medio ambiente y la lucha contra la deforestación">
+    
     <style>
+        :root {
+            --primary-green: #5ab507;
+            --secondary-blue: #2563eb;
+            --accent-aqua: #06b6d4;
+            --dark-green: #14190c;
+            --medium-green: #3d4a25;
+            --text-light: #ffffff;
+            --text-gray: #a7acab;
+            --shadow-dark: rgba(0, 0, 0, 0.3);
+            --overlay-dark: rgba(0, 0, 0, 0.8);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
-            background-image: url('https://wallpapers.com/images/featured/4k-bosque-7sfd6znw2ry6hnlt.jpg');
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+                        url('https://wallpapers.com/images/featured/4k-bosque-7sfd6znw2ry6hnlt.jpg');
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-position: center center;
-            color: aqua;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            color: var(--accent-aqua);
+            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-            box-sizing: border-box;
+            line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* Contenedor para el título y el logo */
+        /* Header mejorado */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(20, 25, 12, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--primary-green);
+            padding: 0.8rem 2rem;
+            z-index: 100;
+            box-shadow: 0 2px 20px var(--shadow-dark);
+            transform: translateY(0);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .header.header-hidden {
+            transform: translateY(-100%);
+        }
+
         .titulo-principal-contenedor {
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 20px;
-            margin-bottom: 20px;
-            flex-wrap: wrap; /* Permite que los elementos salten de línea si no caben */
+            gap: 0.8rem;
+            text-align: center;
         }
 
         h1 {
-            color: #5ab507;
+            color: var(--primary-green);
             text-align: center;
+            font-size: 1.6em;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(45deg, var(--primary-green), var(--accent-aqua));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
             margin: 0;
-            font-size: 2.5em; /* Tamaño de fuente base para el título principal */
         }
 
-        .titulo-principal-contenedor img {
-            width: 80px;
-            height: 80px;
+        .logo-container {
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .logo-container:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-container img {
+            width: 60px;
+            height: 60px;
             object-fit: contain;
-            cursor: pointer; /* Indica que es clicable */
-        }
-        
-        .slogan {
-            color: #a7acab;
-            font-size: 2em;
-            text-align: center;
+            border-radius: 50%;
+            border: 3px solid var(--primary-green);
+            box-shadow: 0 0 20px rgba(90, 181, 7, 0.3);
+            transition: all 0.3s ease;
         }
 
-        h2 {
-            color: blue; /* Se corrigió "Blue" a "blue" para consistencia */
-            margin-top: 30px;
-            margin-bottom: 10px;
-            font-size: 1.8em; /* Tamaño de fuente base para los subtítulos h2 */
-        }
-
-        p {
-            color: rgb(255, 255, 255);
-            margin-bottom: 15px;
-            line-height: 1.6;
-            font-size: 1em; /* Tamaño de fuente base para los párrafos */
-        }
-
-        .seccion-enfasis {
-            background-image: linear-gradient(to right, #3d4a25, #14190c);
-            padding: 30px 40px; /* Tamaño original de los recuadros */
-            text-align: center;
-            border-radius: 8px;
-            margin: 20px auto;
-            max-width: 800px; /* Ancho máximo para pantallas grandes */
-            width: 90%; /* Ajuste a un porcentaje para ser flexible */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        .logo-hint {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-green);
             color: white;
-            opacity: 1; /* Opacidad inicial para la transición final */
-            transform: translateY(0); /* Posición inicial para la transición final */
-            transition: opacity 1s ease-out, transform 1s ease-out; /* Transición suave para la aparición/desaparición */
-            font-size: 1.1em;
-            line-height: 1.8;
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-size: 0.65em;
+            font-weight: 600;
+            white-space: nowrap;
+            opacity: 0;
+            transition: all 0.3s ease;
+            pointer-events: none;
         }
-        
-        /* Estilos para el texto y las listas dentro de las secciones de énfasis */
-        .seccion-enfasis h2, .seccion-enfasis p, .seccion-enfasis ul, .seccion-enfasis li {
-            color: white; /* Color blanco consistente para todo el contenido */
+
+        .logo-container:hover .logo-hint {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-5px);
+        }
+
+        /* Contenido principal */
+        .main-content {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: calc(2rem + var(--header-height, 100px));
+        }
+
+        body {
+            padding-top: 0;
+        }
+
+        .slogan {
+            color: var(--text-gray);
+            font-size: 1.8em;
+            text-align: center;
+            margin: 2rem 0;
+            font-style: italic;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        /* Secciones mejoradas */
+        .seccion-enfasis {
+            background: linear-gradient(135deg, 
+                rgba(61, 74, 37, 0.9) 0%,
+                rgba(20, 25, 12, 0.9) 100%);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem;
+            text-align: center;
+            border-radius: 15px;
+            margin: 2rem auto;
+            max-width: 900px;
+            box-shadow: 0 8px 32px var(--shadow-dark);
+            border: 1px solid rgba(90, 181, 7, 0.2);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .seccion-enfasis::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(90, 181, 7, 0.1), 
+                transparent);
+            transition: left 0.8s ease;
+        }
+
+        .seccion-enfasis:hover::before {
+            left: 100%;
+        }
+
+        .seccion-enfasis.appeared {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .seccion-enfasis h2 {
-            margin-top: 0;
-            margin-bottom: 5px;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            font-size: 1.8em;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .seccion-enfasis h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-green), var(--accent-aqua));
+            border-radius: 2px;
+        }
+
+        .seccion-enfasis p,
+        .seccion-enfasis li {
+            color: var(--text-light);
+            font-size: 1.1em;
+            line-height: 1.8;
+            margin-bottom: 1rem;
         }
 
         .seccion-enfasis ul {
-            list-style-type: disc;
-            padding-left: 20px;
-            margin-top: 10px;
-            text-align: left; /* Alinea la lista a la izquierda dentro del recuadro */
+            text-align: left;
+            padding-left: 2rem;
+            margin-top: 1.5rem;
         }
 
-        .seccion-enfasis ul li {
-            margin-bottom: 5px;
+        .seccion-enfasis li {
+            margin-bottom: 0.8rem;
+            position: relative;
         }
 
-        /* Ajuste para las imágenes dentro de las secciones de énfasis */
+        .seccion-enfasis li::marker {
+            color: var(--primary-green);
+        }
+
+        /* Imágenes mejoradas */
         .seccion-enfasis img {
-            max-width: 100%; /* Asegura que la imagen no se desborde del recuadro */
-            height: auto; /* Mantiene la proporción de la imagen */
-            display: block; /* Elimina espacio extra debajo de la imagen */
-            margin: 15px auto; /* Centra la imagen y le da algo de margen vertical */
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin: 1.5rem auto;
+            display: block;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
         }
 
-        .hidden {
-            opacity: 0; /* Oculta la sección cuando está fuera de vista */
-            transform: translateY(20px); /* La baja ligeramente para el efecto de aparición */
+        .seccion-enfasis img:hover {
+            transform: scale(1.05);
         }
 
-        .appeared {
-            opacity: 1; /* Hace visible la sección */
-            transform: translateY(0); /* La sube a su posición normal */
+        /* Team members grid */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
         }
 
-        /* Estilos para el contenedor del juego iframe */
+        .team-member {
+            background: rgba(90, 181, 7, 0.1);
+            border: 1px solid rgba(90, 181, 7, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .team-member:hover {
+            background: rgba(90, 181, 7, 0.2);
+            transform: translateY(-5px);
+        }
+
+        /* Juego mejorado */
         #dinoGameIframeContainer {
-            position: fixed; /* Posición fija para que flote sobre el contenido */
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 999; /* Asegura que esté por encima de todo */
-            background-color: rgba(0, 0, 0, 0.8); /* Fondo oscuro semitransparente */
+            z-index: 999;
+            background: var(--overlay-dark);
+            backdrop-filter: blur(5px);
             display: flex;
             align-items: center;
             justify-content: center;
-            visibility: hidden; /* Oculto por defecto */
+            visibility: hidden;
             opacity: 0;
-            transition: visibility 0s, opacity 0.5s ease; /* Transición suave */
+            transition: all 0.5s ease;
         }
 
         #dinoGameIframeContainer.game-visible {
@@ -141,180 +299,326 @@
         }
 
         #dinoGameIframeContainer iframe {
-            width: 800px; /* Ancho deseado para el juego, puedes ajustarlo */
-            height: 250px; /* Alto deseado para el juego, puedes ajustarlo */
-            max-width: 90%; /* Asegura que sea responsivo en pantallas pequeñas */
-            max-height: 90%;
-            border: 2px solid #5ab507; /* Borde para el iframe */
-            border-radius: 8px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-            background-color: white; /* Fondo del iframe si el juego no lo cubre completamente */
+            width: min(900px, 90vw);
+            height: min(300px, 50vh);
+            border: 3px solid var(--primary-green);
+            border-radius: 15px;
+            box-shadow: 0 0 40px rgba(90, 181, 7, 0.5);
+            background: white;
         }
 
-        /* Estilos para las instrucciones y el botón de salida del juego */
         .game-controls {
             position: absolute;
-            bottom: 20px;
+            bottom: 2rem;
             color: white;
-            font-size: 1em;
             text-align: center;
             width: 100%;
         }
 
         .game-controls button {
-            background-color: #5ab507;
+            background: linear-gradient(45deg, var(--primary-green), #4a9503);
             color: white;
             border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
+            padding: 12px 24px;
+            border-radius: 25px;
             cursor: pointer;
-            margin-top: 10px;
-            font-size: 0.9em;
+            margin-top: 1rem;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(90, 181, 7, 0.3);
         }
 
-        /* --- MEDIA QUERIES para dispositivos móviles --- */
-        @media (max-width: 768px) {
-            body {
-                padding: 10px; /* Menos padding en los bordes para móviles */
-            }
+        .game-controls button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(90, 181, 7, 0.4);
+        }
 
-            .titulo-principal-contenedor {
-                flex-direction: column; /* Título y logo uno debajo del otro en móviles */
-                gap: 10px; /* Menos espacio entre ellos */
-                text-align: center; /* Centra el texto si hay un salto */
+        /* Comentarios mejorados */
+        #commento {
+            max-width: 900px;
+            margin: 3rem auto;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid rgba(90, 181, 7, 0.2);
+        }
+
+        /* Animaciones */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Responsive mejorado */
+        @media (max-width: 768px) {
+            .header {
+                padding: 1rem 0.5rem;
             }
 
             h1 {
-                font-size: 1.8em; /* Título más pequeño para móviles */
-                line-height: 1.2;
+                font-size: 1.6em;
+                line-height: 1.3;
+                padding: 0 1rem;
             }
 
-            .titulo-principal-contenedor img {
-                width: 60px; /* Logo más pequeño en móviles */
-                height: 60px;
+            .logo-container img {
+                width: 80px;
+                height: 80px;
             }
-            
+
+            .logo-hint {
+                font-size: 0.75em;
+                padding: 5px 10px;
+                bottom: -25px;
+            }
+
+            .logo-container {
+                margin-bottom: 1.5rem;
+            }
+
             .slogan {
-                font-size: 1.2em;
+                font-size: 1.3em;
+                margin: 1.5rem 0;
+                padding: 0 1rem;
             }
 
-            h2 {
-                font-size: 1.5em; /* Subtítulos más pequeños en móviles */
-            }
-
-            p {
-                font-size: 0.95em; /* Párrafos ligeramente más pequeños */
+            .main-content {
+                padding: 1rem;
             }
 
             .seccion-enfasis {
-                padding: 20px 25px; /* Menos padding en los recuadros para móviles */
-                font-size: 1em; /* Tamaño de fuente estándar para móviles */
-                line-height: 1.6;
+                padding: 1.5rem;
+                margin: 1.5rem auto;
             }
 
-            .seccion-enfasis ul {
-                padding-left: 15px; /* Ajusta el padding de la lista */
+            .seccion-enfasis h2 {
+                font-size: 1.5em;
             }
 
-            /* Ajuste básico para el contenedor de Commento en móviles */
+            .seccion-enfasis p,
+            .seccion-enfasis li {
+                font-size: 1em;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
             #commento {
-                padding: 20px 25px !important; /* El !important ayuda a sobrescribir estilos inline o de Commento si es necesario */
+                margin: 2rem auto;
+                padding: 1.5rem;
             }
-            
+
             #dinoGameIframeContainer iframe {
-                width: 95%; /* Hace el iframe casi de ancho completo en móviles */
-                height: 180px; /* Ajusta la altura para pantallas más pequeñas */
+                width: 95vw;
+                height: 40vh;
+                min-height: 250px;
             }
         }
 
         @media (max-width: 480px) {
-            /* Ajustes para pantallas aún más pequeñas (teléfonos muy pequeños) */
-            h1 {
-                font-size: 1.5em;
+            .header {
+                padding: 0.8rem 0.5rem;
             }
-            h2 {
+
+            .main-content {
+                padding-top: calc(0.5rem + var(--header-height, 100px));
+            }
+
+            h1 {
+                font-size: 1.4em;
+                line-height: 1.2;
+            }
+
+            .logo-container img {
+                width: 70px;
+                height: 70px;
+                border-width: 3px;
+            }
+
+            .logo-hint {
+                font-size: 0.7em;
+                padding: 4px 8px;
+                bottom: -20px;
+            }
+
+            .logo-container {
+                margin-bottom: 1rem;
+            }
+
+            .slogan {
+                font-size: 1.1em;
+            }
+
+            .seccion-enfasis {
+                padding: 1rem;
+                margin: 1rem auto;
+            }
+
+            .seccion-enfasis h2 {
                 font-size: 1.3em;
             }
-            .seccion-enfasis {
-                padding: 15px 20px;
+
+            .seccion-enfasis p,
+            .seccion-enfasis li {
+                font-size: 0.95em;
             }
-            #commento {
-                padding: 15px 20px !important;
+
+            #dinoGameIframeContainer iframe {
+                width: 98vw;
+                height: 35vh;
+                min-height: 200px;
+            }
+
+            .game-controls {
+                bottom: 1rem;
+            }
+
+            .game-controls p {
+                font-size: 0.9em;
+                margin: 0 1rem;
             }
         }
+
+        @media (max-width: 360px) {
+            h1 {
+                font-size: 1.2em;
+            }
+
+            .logo-container img {
+                width: 60px;
+                height: 60px;
+            }
+
+            .slogan {
+                font-size: 1em;
+            }
+        }
+
+        /* Mejoras de accesibilidad */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* Focus states mejorados */
+        button:focus,
+        .logo-container:focus {
+            outline: 2px solid var(--accent-aqua);
+            outline-offset: 2px;
+        }
     </style>
-<link type="text/css" href="https://cdn.commento.io/css/commento.css" rel="stylesheet"></head>
+</head>
+
 <body>
-    <div class="titulo-principal-contenedor">
-        <h1>Proyecto de Robótica 2025-Liceo Dr. Ricardo Bressani</h1>
-        <img id="logoPrincipal" src="https://static.wixstatic.com/media/a79656_b3956f8e396847fc8f5ae9f3d4df3a55~mv2_d_1200_1200_s_2.png/v1/crop/x_0,y_164,w_1200,h_1036/fill/w_150,h_150,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/lgous.png" alt="Logo Liceo Dr. Ricardo Bressani">
-    </div>
-    <p class="slogan"><strong>"Donde la tecnología y la creatividad protegen la naturaleza"</strong></p>
+    <header class="header">
+        <div class="titulo-principal-contenedor">
+            <h1>Proyecto de Robótica 2025 - Liceo Dr. Ricardo Bressani</h1>
+            <div class="logo-container" id="logoPrincipal" tabindex="0" role="button" aria-label="Logo del liceo">
+                <img src="https://static.wixstatic.com/media/a79656_b3956f8e396847fc8f5ae9f3d4df3a55~mv2_d_1200_1200_s_2.png/v1/crop/x_0,y_164,w_1200,h_1036/fill/w_150,h_150,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/lgous.png" 
+                     alt="Logo Liceo Dr. Ricardo Bressani">
+                <div class="logo-hint">¡Haz clic para jugar!</div>
+            </div>
+        </div>
+    </header>
 
-    <div id="dinoGameIframeContainer">
-        <iframe src="https://chromedino.com/" frameborder="0" scrolling="no" width="100%" height="100%" loading="lazy"></iframe>
+    <!-- Overlay del juego -->
+    <div id="dinoGameIframeContainer" role="dialog" aria-modal="true" aria-labelledby="game-title">
+        <iframe src="https://chromedino.com/" 
+                title="Juego del Dinosaurio de Chrome"
+                frameborder="0" 
+                scrolling="no"
+                loading="lazy"></iframe>
         <div class="game-controls">
-            <p>Haz clic en el juego para empezar. Presiona "Salir Del Juego" para salir.</p>
-            <button id="exitGameButton">Salir del Juego</button>
+            <h3 id="game-title" class="sr-only">Juego del Dinosaurio</h3>
+            <p>Haz clic en el juego para empezar. Usa la barra espaciadora para saltar.</p>
+            <button id="exitGameButton" aria-label="Cerrar el juego y volver al contenido principal">
+                Salir del Juego
+            </button>
         </div>
     </div>
 
-    <div id="mainContentWrapper">
-        <div class="seccion-enfasis appeared">
-            <h2 style="color: white;">Acerca de Nosotros</h2>
-            <p>Somos S.T.E.A.M Birds, un equipo que se especializa en la First Lego League, enfocándonos en brindar protección a la naturaleza</p>
-        </div>
+    <main class="main-content">
+        <p class="slogan"><strong>"Donde la tecnología y la creatividad protegen la naturaleza"</strong></p>
 
-        <div class="seccion-enfasis appeared">
-            <h2 style="color: white;">¿De qué Trata nuestro proyecto?</h2>
-            <p>Nuestro proyecto trata sobre el cuidado de los animales enfatizando diferentes objetivos</p>
-        </div>
+        <section class="seccion-enfasis appeared">
+            <h2>Acerca de Nosotros</h2>
+            <p>Somos <strong>S.T.E.A.M Birds</strong>, un equipo especializado en la First Lego League, enfocándonos en brindar protección a la naturaleza a través de soluciones tecnológicas innovadoras y sostenibles.</p>
+        </section>
 
-        <div class="seccion-enfasis hidden">
-            <h2 style="color: white;">Nuestro Énfasis Principal: Combate a la Deforestación</h2>
-            <p>En el corazón de nuestro proyecto está el <strong>compromiso inquebrantable con la preservación de los bosques</strong>. Nos enfocamos en el desarrollo de <strong>prototipos y sistemas inteligentes</strong> para monitorear y asistir en la restauración de áreas vulnerables. Creemos firmemente que la tecnología puede ser una poderosa aliada en la lucha contra la tala ilegal y la degradación del suelo. Nuestros esfuerzos se dirigen a:</p>
+        <section class="seccion-enfasis appeared">
+            <h2>¿De qué Trata nuestro Proyecto?</h2>
+            <p>Nuestro proyecto trata sobre el <strong>cuidado y protección de los animales</strong>, enfatizando diferentes objetivos para garantizar su bienestar y conservación mediante soluciones tecnológicas innovadoras.</p>
+        </section>
+
+        <section class="seccion-enfasis hidden">
+            <h2>Nuestro Énfasis Principal: Combate a la Deforestación</h2>
+            <p>En el corazón de nuestro proyecto está el <strong>compromiso inquebrantable con la preservación de los bosques</strong>. Nos enfocamos en el desarrollo de <strong>prototipos y sistemas inteligentes</strong> para monitorear y asistir en la restauración de áreas vulnerables.</p>
+            <p>Creemos firmemente que la tecnología puede ser una poderosa aliada en la lucha contra la tala ilegal y la degradación del suelo. Nuestros esfuerzos se dirigen a:</p>
             <ul>
-                <li><strong>Monitoreo con Sensores:</strong> Crear estaciones de monitoreo equipadas con sensores para recopilar datos clave en tiempo real, como la humedad del suelo, la temperatura del aire y la salud de la vegetación, lo cual es fundamental para entender el estado del ecosistema.</li>
-                <li><strong>Mecanismos de Reforestación Automatizada:</strong> Diseñar y construir prototipos de dispositivos que puedan dispensar semillas o plántulas de forma precisa en áreas específicas, haciendo la reforestación más eficiente.</li>
-                <li><strong>Análisis de Datos y Concientización:</strong> Utilizar la información recopilada por nuestros sensores para generar evidencias que ayuden a educar a la comunidad y a demostrar la importancia vital de la conservación forestal.</li>
+                <li><strong>Monitoreo con Sensores:</strong> Crear estaciones de monitoreo equipadas con sensores para recopilar datos clave en tiempo real, como la humedad del suelo, temperatura del aire y salud de la vegetación.</li>
+                <li><strong>Mecanismos de Reforestación Automatizada:</strong> Diseñar y construir prototipos de dispositivos que puedan dispensar semillas o plántulas de forma precisa en áreas específicas.</li>
+                <li><strong>Análisis de Datos y Concientización:</strong> Utilizar la información recopilada para generar evidencias que ayuden a educar a la comunidad sobre la importancia vital de la conservación forestal.</li>
             </ul>
-        </div>
+        </section>
 
-        <div class="seccion-enfasis hidden">
-            <h2 style="color: white;">Nuestra experiencia</h2>
-            <p>Somos un equipo conformado por 6 integrantes, nuestros nombres son:</p>
-            <ul>
-                <li>Nikolás Hernandez</li>
-                <li>Josué Choc</li>
-                <li>Ahylía Gonzalez</li>
-                <li>Angel Valdez</li>
-                <li>Mariandré Fernandez</li>
-                <li>Jose Fabián Castillo</li>
-            </ul>
-        </div>
+        <section class="seccion-enfasis hidden">
+            <h2>Nuestro Equipo</h2>
+            <p>Somos un equipo conformado por 6 integrantes apasionados por la robótica y la conservación:</p>
+            <div class="team-grid">
+                <div class="team-member">Nikolás Hernández</div>
+                <div class="team-member">Josué Choc</div>
+                <div class="team-member">Ahylía González</div>
+                <div class="team-member">Angel Valdez</div>
+                <div class="team-member">Mariandré Fernández</div>
+                <div class="team-member">José Fabián Castillo</div>
+            </div>
+        </section>
         
-        <div class="seccion-enfasis hidden">
-            <h2 style="color: white;">Nuestros Objetivos a largo plazo</h2>
+        <section class="seccion-enfasis hidden">
+            <h2>Nuestros Objetivos a Largo Plazo</h2>
             <ul>
-                <li>Poder brindar una solución efectiva a los problemas de la deforestación</li>
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIjfk79_OL-BhZBhohhPI6eYArqKx2K1SP-Q&amp;s" alt="Error-404">
-                <li>Medir La humedad del suelo y garantizar el buen desarrolo de los árboles</li>
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTF_nB4-fvdJ4ovNGgT1khvqbDvJsYCW1gP7w&amp;s" alt="Error-404">
+                <li><strong>Solución Integral:</strong> Desarrollar una solución efectiva y escalable para los problemas de deforestación en nuestra región</li>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIjfk79_OL-BhZBhohhPI6eYArqKx2K1SP-Q&s" 
+                     alt="Tecnología para combatir la deforestación">
+                <li><strong>Monitoreo Inteligente:</strong> Implementar sistemas para medir la humedad del suelo y garantizar el desarrollo óptimo de los árboles</li>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTF_nB4-fvdJ4ovNGgT1khvqbDvJsYCW1gP7w&s" 
+                     alt="Sensor de humedad del suelo">
             </ul>
-            <!-- Referecia de tamaño de las imágenes= 273x185 -->
-        </div>
+        </section>
         
-        <div class="seccion-enfasis hidden">
-            <h2 style="color: white;">Información Adicional</h2>
-            <p>Este es un nuevo recuadro que debería aparecer debajo de los demás.</p>
-        </div>
-        <div class="seccion-enfasis hidden">
-            <h2 style="color: white;">Recuadro 6</h2>
-            <p>xxxxxx</p>
-        </div>
+        <section class="seccion-enfasis hidden">
+            <h2>Impacto y Visión Futura</h2>
+            <p>Nuestro proyecto busca crear un <strong>impacto positivo duradero</strong> en la conservación ambiental. Visualizamos un futuro donde la tecnología y la naturaleza trabajen en armonía para preservar nuestros ecosistemas para las generaciones venideras.</p>
+            <p>Esperamos que nuestras innovaciones puedan ser implementadas en otras regiones que enfrenten desafíos similares de deforestación y pérdida de biodiversidad.</p>
+        </section>
+
         <script defer src="https://cdn.commento.io/js/commento.js"></script>
-<div id="commento" style="max-width: 800px; margin: 20px auto; padding: 20px; background-color: rgba(0, 0, 0, 0.6)";></div>
-<script>
+        <div id="commento"></div>
+    </main>
+
+    <script>
+        // Prevenir menú contextual
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
         });
@@ -324,60 +628,125 @@
             const logo = document.getElementById('logoPrincipal');
             const dinoGameIframeContainer = document.getElementById('dinoGameIframeContainer');
             const exitGameButton = document.getElementById('exitGameButton');
+            const header = document.querySelector('.header');
+            
+            // Variables para control de scroll
+            let lastScrollTop = 0;
+            let scrollTimeout;
+            let showHeaderTimeout;
+            let hideHeaderTimeout;
 
-            function showDinoGame() {
-                document.body.style.overflow = 'hidden'; 
-                window.removeEventListener('scroll', checkVisibility);
-                sections.forEach(section => section.classList.remove('appeared'));
-
-                dinoGameIframeContainer.classList.add('game-visible');
-            }
-
-            function hideDinoGame() {
-                document.body.style.overflow = ''; 
+            // Función para controlar el header
+            function handleHeaderVisibility() {
+                if (dinoGameIframeContainer.classList.contains('game-visible')) return;
                 
-                dinoGameIframeContainer.classList.remove('game-visible');
-
-                sections.forEach(section => section.classList.add('hidden'));
-                checkVisibility();
-                window.addEventListener('scroll', checkVisibility);
+                const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                
+                // Limpiar timeouts anteriores
+                clearTimeout(showHeaderTimeout);
+                clearTimeout(hideHeaderTimeout);
+                
+                // Si estamos en el top (primeros 30px), siempre mostrar
+                if (currentScrollTop <= 30) {
+                    header.classList.remove('header-hidden');
+                } 
+                // Si scrolleamos hacia abajo más de 50px, ocultar inmediatamente
+                else if (currentScrollTop > lastScrollTop && currentScrollTop > 50) {
+                    hideHeaderTimeout = setTimeout(() => {
+                        header.classList.add('header-hidden');
+                    }, 100); // Delay mínimo para evitar parpadeos
+                } 
+                // Si scrolleamos hacia arriba, mostrar con delay
+                else if (currentScrollTop < lastScrollTop) {
+                    showHeaderTimeout = setTimeout(() => {
+                        header.classList.remove('header-hidden');
+                    }, 200); // Delay de 200ms al scrollear hacia arriba
+                }
+                
+                lastScrollTop = currentScrollTop;
             }
 
-            logo.addEventListener('click', function() {
-                showDinoGame();
+            // Función para mostrar el juego
+            function showDinoGame() {
+                document.body.style.overflow = 'hidden';
+                window.removeEventListener('scroll', handleScroll);
+                dinoGameIframeContainer.classList.add('game-visible');
+                dinoGameIframeContainer.focus();
+                
+                // Mostrar header cuando se abre el juego
+                header.classList.remove('header-hidden');
+            }
+
+            // Función para ocultar el juego
+            function hideDinoGame() {
+                document.body.style.overflow = '';
+                dinoGameIframeContainer.classList.remove('game-visible');
+                
+                // Restaurar visibilidad de secciones
+                sections.forEach(section => {
+                    section.classList.remove('appeared');
+                    section.classList.add('hidden');
+                });
+                
+                // Reactivar scroll listener y verificar visibilidad
+                setTimeout(() => {
+                    checkVisibility();
+                    window.addEventListener('scroll', handleScroll);
+                    // Actualizar posición del header
+                    handleHeaderVisibility();
+                }, 100);
+                
+                logo.focus();
+            }
+
+            // Event listeners para el juego
+            logo.addEventListener('click', showDinoGame);
+            logo.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    showDinoGame();
+                }
             });
 
-            exitGameButton.addEventListener('click', function() {
-                hideDinoGame();
-            });
+            exitGameButton.addEventListener('click', hideDinoGame);
 
+            // Cerrar juego con Escape
             document.addEventListener('keydown', function(event) {
                 if (event.key === 'Escape' && dinoGameIframeContainer.classList.contains('game-visible')) {
                     hideDinoGame();
                 }
             });
 
+            // Función mejorada de visibilidad
             function checkVisibility() {
                 if (dinoGameIframeContainer.classList.contains('game-visible')) return;
 
-                sections.forEach(section => {
+                sections.forEach((section, index) => {
                     const rect = section.getBoundingClientRect();
                     const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-
+                    
+                    // Calcular porcentaje visible
+                    const elementTop = rect.top;
+                    const elementBottom = rect.bottom;
                     const elementHeight = rect.height;
-                    const visibleTop = Math.max(0, rect.top);
-                    const visibleBottom = Math.min(viewportHeight, rect.bottom);
-                    const visibleHeight = visibleBottom - visibleTop;
-
-                    const visibilityThreshold = 0.5;
-                    const isSignificantlyVisible = (visibleHeight / elementHeight) >= visibilityThreshold;
-
-                    if (isSignificantlyVisible) {
+                    
+                    const visibleTop = Math.max(0, elementTop);
+                    const visibleBottom = Math.min(viewportHeight, elementBottom);
+                    const visibleHeight = Math.max(0, visibleBottom - visibleTop);
+                    
+                    const visibilityPercentage = visibleHeight / elementHeight;
+                    const threshold = 0.3; // 30% visible para activar
+                    
+                    if (visibilityPercentage >= threshold) {
                         if (!section.classList.contains('appeared')) {
-                            section.classList.remove('hidden');
-                            section.classList.add('appeared');
+                            // Agregar delay escalonado para efecto en cascada
+                            setTimeout(() => {
+                                section.classList.remove('hidden');
+                                section.classList.add('appeared');
+                            }, index * 150);
                         }
-                    } else {
+                    } else if (elementTop > viewportHeight || elementBottom < 0) {
+                        // Solo ocultar si está completamente fuera de vista
                         if (section.classList.contains('appeared')) {
                             section.classList.remove('appeared');
                             section.classList.add('hidden');
@@ -386,12 +755,36 @@
                 });
             }
 
-            sections.forEach(section => section.classList.add('hidden'));
-            checkVisibility();
-            window.addEventListener('scroll', checkVisibility);
+            // Función combinada para manejar el scroll
+            function handleScroll() {
+                if (scrollTimeout) {
+                    clearTimeout(scrollTimeout);
+                }
+                
+                // Manejar visibilidad del header inmediatamente
+                handleHeaderVisibility();
+                
+                // Manejar visibilidad de secciones con debounce
+                scrollTimeout = setTimeout(() => {
+                    checkVisibility();
+                }, 10);
+            }
+
+            // Inicialización
+            sections.forEach((section, index) => {
+                if (index < 2) {
+                    // Las primeras dos secciones aparecen inmediatamente
+                    section.classList.add('appeared');
+                    section.classList.remove('hidden');
+                } else {
+                    section.classList.add('hidden');
+                }
+            });
+
+            // Verificar visibilidad inicial y agregar listener
+            setTimeout(checkVisibility, 100);
+            window.addEventListener('scroll', handleScroll, { passive: true });
         });
     </script>
-
-
 </body>
 </html>
